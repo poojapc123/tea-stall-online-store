@@ -1,0 +1,186 @@
+/* ==========================================================================
+   Page shell — header, footer and <head> shared by every generated page.
+   `node tools/build.js` writes the finished static .html files to the site
+   root. index.html is hand-written and is NOT generated.
+   ========================================================================== */
+
+const NAV = [
+  ["index.html", "Home"],
+  ["about.html", "About"],
+  ["shop.html", "Shop"],
+  ["catering.html", "Catering"],
+  ["franchise.html", "Franchise"],
+  ["contact.html", "Contact"]
+];
+
+const ICON = {
+  logo: '<img src="assets/img/sharon-logo.svg" alt="" width="44" height="44" decoding="async">',
+  leaf: '<svg viewBox="0 0 24 24" fill="none" stroke="#ddf1e3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c0-9 6-15 16-16 1 10-5 16-14 16H4z"/><path d="M4 20c4-6 8-9 12-11"/></svg>',
+  cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.4a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3L21 7H6"/></svg>',
+  truck: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M2 6h11v11H2z"/><path d="M13 9h4l3 3.5V17h-7z"/><circle cx="6.5" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg>',
+  pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.8"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16.9v2.5a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 1.1 3.6 2 2 0 0 1 3.1 1.4h2.5a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L6.7 9.3a16 16 0 0 0 6 6l1.3-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
+  mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>',
+  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.5l3.5 2"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>',
+  shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8.5-7 9.5C8 20.5 5 17 5 12V6z"/><path d="m9 12 2 2 4-4"/></svg>',
+  warn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 22 20H2z"/><path d="M12 9.5v5M12 17.5h.01"/></svg>'
+};
+
+function header(active) {
+  const links = NAV.map(([href, label]) =>
+    `      <a href="${href}"${href === active ? ' class="is-active"' : ""}>${label}</a>`
+  ).join("\n");
+
+  return `<div class="topbar">
+  <div class="shell topbar__inner">
+    <span class="topbar__promo">${ICON.truck} Free shipping across India on orders above ₹999</span>
+    <div class="topbar__links">
+      <a href="tel:+910000000000">📞 +91 00000 00000</a>
+      <a href="mailto:hello@teastall-demo.com">hello@teastall-demo.com</a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__mark">${ICON.logo}</span>
+      <span class="brand__text">
+        <span class="brand__name">Sharon Tea</span>
+        <span class="brand__tag">Stall · Est. 2007</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav">
+${links}
+    </nav>
+
+    <div class="header-actions">
+      <a class="cart-btn" href="cart.html">
+        ${ICON.cart}
+        <span class="label">Basket</span>
+        <span class="cart-count" data-cart-count data-empty="true">0</span>
+      </a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span></button>
+    </div>
+  </div>
+</header>`;
+}
+
+const FOOTER = `<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <span class="brand__mark">${ICON.logo}</span>
+          <span class="brand__text">
+            <span class="brand__name">Sharon Tea</span>
+            <span class="brand__tag">Stall · Est. 2007</span>
+          </span>
+        </a>
+        <p>Hand-blended organic tea from Indiranagar, Bangalore. Poured at the stall since 2007, sealed and sent across India since 2021.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.5l.5-3H13v-2c0-.6.4-1 1-1z"/></svg></a>
+          <a href="https://wa.me/910000000000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.3 14c-.2.6-1.3 1.2-1.8 1.2s-1.2.3-3.9-1.1a12 12 0 0 1-4.2-4.6c-.4-.8-.5-1.5-.5-2.1 0-.7.4-1.3.8-1.6.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5c-.1.2-.3.3-.1.6a9 9 0 0 0 3.7 3.2c.3.1.5.1.7-.1l.8-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3s0 .6-.2 1z"/></svg></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="catering.html">Catering service</a></li>
+          <li><a href="franchise.html">Franchise</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html?cat=classic">Classic teas</a></li>
+          <li><a href="shop.html?cat=spiced">Spiced teas</a></li>
+          <li><a href="shop.html?cat=herbal">Herbal &amp; wellness</a></li>
+          <li><a href="shop.html?cat=refreshing">Refreshing</a></li>
+          <li><a href="shop.html?cat=dessert">Dessert teas</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Visit the stall</h4>
+        <ul class="contact-list">
+          <li>${ICON.pin}<span>#00, Demo Street, 1st Stage,<br>Indiranagar, Bangalore – 560038</span></li>
+          <li>${ICON.phone}<span><a href="tel:+910000000000">+91 00000 00000</a></span></li>
+          <li>${ICON.mail}<span><a href="mailto:hello@teastall-demo.com">hello@teastall-demo.com</a></span></li>
+          <li>${ICON.clock}<span>Open daily, 6:00 am – 11:00 pm</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Sharon Tea Stall. All rights reserved.</span>
+      <nav>
+        <a href="shipping.html">Shipping &amp; Returns</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+  </div>
+</footer>`;
+
+function pageHead(title, description, extraHead = "") {
+  return `<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<meta name="description" content="${description}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/img/sharon-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">${extraHead}`;
+}
+
+/** Assemble a complete static page. */
+function render({ file, title, description, body, scripts = "", extraHead = "" }) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+${pageHead(title, description, extraHead)}
+</head>
+<body>
+
+${header(file)}
+
+<main>
+${body}
+</main>
+
+${FOOTER}
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/main.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+${scripts}
+</body>
+</html>
+`;
+}
+
+/** Standard dark page banner. */
+function pageHeadBanner(title, sub, crumb) {
+  return `<section class="page-head">
+  <div class="shell">
+    <h1>${title}</h1>
+    <p>${sub}</p>
+    <nav class="crumbs"><a href="index.html">Home</a> <span>/</span> <span>${crumb}</span></nav>
+  </div>
+</section>`;
+}
+
+module.exports = { render, pageHeadBanner, ICON };

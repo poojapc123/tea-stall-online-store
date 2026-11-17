@@ -1,0 +1,20 @@
+{
+  "name": "sharon-tea-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sharon Tea Stall — static storefront with Razorpay checkout",
+  "scripts": {
+    "build": "node tools/build.js",
+    "dev": "node tools/serve.js",
+    "start": "node tools/serve.js"
+  },
+  "dependencies": {
+    "razorpay": "^2.9.4"
+  },
+  "optionalDependencies": {
+    "nodemailer": "^6.9.14"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
