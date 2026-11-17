@@ -46,7 +46,7 @@ module.exports = {
         <h2 style="font-size:1.6rem">While you wait</h2>
         <p>Follow the stall on Instagram — we post the week's grind every Monday.</p>
       </div>
-      <a class="btn btn--gold" href="https://www.instagram.com/" target="_blank" rel="noopener">Follow @sharonteastall</a>
+      <a class="btn btn--gold" href="https://www.instagram.com/" target="_blank" rel="noopener">Follow us on Instagram</a>
     </div>
 
   </div>
